@@ -7,7 +7,7 @@
 
 using namespace std;
 extern Studio* backup;
-// TODO kurin said to add destructor to base action
+
 BaseAction::BaseAction(): errorMsg(""){}
 
 ActionStatus BaseAction::getStatus() const {
@@ -57,7 +57,6 @@ void OpenTrainer::act(Studio &studio) {
         trainer->openTrainer();
         complete();
     }
-    //TODO question about this class and rule of 5 in forum
 }
 
 std::string OpenTrainer::toString() const {
@@ -132,7 +131,6 @@ void MoveCustomer::act(Studio &studio) {
     Trainer* sTrainer = studio.getTrainer(srcTrainer);
     Trainer* dTrainer = studio.getTrainer(dstTrainer);
 
-    //TODO what the fuck is this function supposed to take care of.
 
     // check that both trainers are open, check dTrainer capacity and check if customer is in sTrainer's customer list.
     if (sTrainer == nullptr || dTrainer == nullptr || !sTrainer->isOpen() || !dTrainer->isOpen() ||

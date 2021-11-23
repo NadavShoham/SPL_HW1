@@ -1,0 +1,16 @@
+# Number of trainers
+5
+
+# Traines
+6,3,8,4,3
+
+# Work Options
+Yoga, Anaerobic, 90
+Pilates, Anaerobic, 110
+Bar, Anaerobic, 90
+Spinning, Mixed, 120
+Zumba, Cardio, 100
+Running, Cardio, 70
+Rope Jumps, Cardio, 70
+Kickboxing, Mixed, 140
+CrossFit, Mixed, 140

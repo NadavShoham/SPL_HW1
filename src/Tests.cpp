@@ -10,7 +10,7 @@ void currTest() {
     runningTest();
 }
 void runningTest() {
-    string configPath = R"(C:\Users\shoha\CLionProjects\SPL_HW1\ExmapleInput.txt)";
+    string configPath = R"(C:\Users\shoha\CLionProjects\SPL_HW1\exampleInput2.txt)";
     Studio studio(configPath);
     studio.start();
 }

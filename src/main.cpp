@@ -22,7 +22,6 @@ int main(int argc, char** argv){
     return 0;
      */
     // TODO uncomment section
-    // TODO look again on gilad's question in the forum
     currTest();
 
 

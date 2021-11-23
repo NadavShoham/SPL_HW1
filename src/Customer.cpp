@@ -69,7 +69,6 @@ vector<int> CheapCustomer::order(const vector<Workout> &workout_options){
     for (const auto & workout_option : workout_options){
         int price = workout_option.getPrice();
         if(price <= cheapest) {
-            //TODO check case that there is two with the same price
             if (price == cheapest && workout_option.getId() > cheapestWorkout){
             } else{
                 cheapest = price;
@@ -113,7 +112,6 @@ vector<int> HeavyMuscleCustomer::order(const vector<Workout> &workout_options) {
             anaerobicWorkouts.emplace_back(workout_option.getPrice(),workout_option.getId());
     }
     sort(anaerobicWorkouts.rbegin(),anaerobicWorkouts.rend());
-    //TODO check case that there is two with the same price
     orders.reserve(anaerobicWorkouts.size());
     for (auto pair: anaerobicWorkouts){
         orders.push_back(pair.second);
@@ -178,7 +176,6 @@ vector<int> FullBodyCustomer::order(const vector<Workout> &workout_options){
         }
     }
 
-    // TODO check case that there is two with the same price
     // if order was successful
     if (cheapestCardio != INT_MAX ) {
         orders.push_back(cheapestCardio);

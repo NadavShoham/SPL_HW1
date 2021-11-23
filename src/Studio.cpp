@@ -14,8 +14,13 @@ Studio::Studio(const string &configFilePath): open(false), customerLastId(0){
 
     string numOfTrainers;
     string capacityOfTrainers;
-    getline(config, numOfTrainers);
-    getline(config, capacityOfTrainers);
+    while (numOfTrainers.empty() || numOfTrainers[0] == '#') {
+        getline(config, numOfTrainers);
+    }
+    while (capacityOfTrainers.empty() || capacityOfTrainers[0] == '#') {
+        getline(config, capacityOfTrainers);
+    }
+
 
 
     // initializing trainers vector.
@@ -27,7 +32,10 @@ Studio::Studio(const string &configFilePath): open(false), customerLastId(0){
 
     // initializing workout vector.
     string workoutLine;
-    getline(config, workoutLine);
+    while (workoutLine.empty() || workoutLine[0] == '#') {
+        getline(config, workoutLine);
+    }
+
     int i = 0;
     while (!workoutLine.empty()){
         unsigned int firstDelimiter = workoutLine.find_first_of(',');
@@ -45,7 +53,7 @@ Studio::Studio(const string &configFilePath): open(false), customerLastId(0){
         int price = stoi(workoutLine.substr(secondDelimiter + 1, workoutLine.length()));
         workout_options.emplace_back(i, name, price, type);
         i++;
-        getline(config, workoutLine);;
+        getline(config, workoutLine);
     }
     config.close();
 }
