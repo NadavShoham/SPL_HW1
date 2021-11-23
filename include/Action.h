@@ -15,6 +15,8 @@ class Studio;
 class BaseAction{
 public:
     BaseAction();
+    virtual BaseAction* clone() const = 0;
+    virtual ~BaseAction();
     ActionStatus getStatus() const;
     virtual void act(Studio& studio)=0;
     virtual std::string toString() const=0;
@@ -31,6 +33,7 @@ private:
 class OpenTrainer : public BaseAction {
 public:
     OpenTrainer(int id, std::vector<Customer *> &customersList);
+    BaseAction* clone() const;
     void act(Studio &studio);
     std::string toString() const;
 private:
@@ -43,6 +46,7 @@ private:
 class Order : public BaseAction {
 public:
     Order(int id);
+    BaseAction* clone() const;
     void act(Studio &studio);
     std::string toString() const;
 private:
@@ -53,6 +57,7 @@ private:
 class MoveCustomer : public BaseAction {
 public:
     MoveCustomer(int src, int dst, int customerId);
+    BaseAction* clone() const;
     void act(Studio &studio);
     std::string toString() const;
 private:
@@ -65,6 +70,7 @@ private:
 class Close : public BaseAction {
 public:
     Close(int id);
+    BaseAction* clone() const;
     void act(Studio &studio);
     std::string toString() const;
 private:
@@ -75,6 +81,7 @@ private:
 class CloseAll : public BaseAction {
 public:
     CloseAll();
+    BaseAction* clone() const;
     void act(Studio &studio);
     std::string toString() const;
 private:
@@ -84,6 +91,7 @@ private:
 class PrintWorkoutOptions : public BaseAction {
 public:
     PrintWorkoutOptions();
+    BaseAction* clone() const;
     void act(Studio &studio);
     std::string toString() const;
 private:
@@ -93,6 +101,7 @@ private:
 class PrintTrainerStatus : public BaseAction {
 public:
     PrintTrainerStatus(int id);
+    BaseAction* clone() const;
     void act(Studio &studio);
     std::string toString() const;
 private:
@@ -103,6 +112,7 @@ private:
 class PrintActionsLog : public BaseAction {
 public:
     PrintActionsLog();
+    BaseAction* clone() const;
     void act(Studio &studio);
     std::string toString() const;
 private:
@@ -112,6 +122,7 @@ private:
 class BackupStudio : public BaseAction {
 public:
     BackupStudio();
+    BaseAction* clone() const;
     void act(Studio &studio);
     std::string toString() const;
 private:
@@ -121,6 +132,7 @@ private:
 class RestoreStudio : public BaseAction {
 public:
     RestoreStudio();
+    BaseAction* clone() const;
     void act(Studio &studio);
     std::string toString() const;
 

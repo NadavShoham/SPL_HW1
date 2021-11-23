@@ -14,6 +14,11 @@ public:
     virtual std::string toString() const = 0;
     std::string getName() const;
     int getId() const;
+    //ours:
+    bool getOrdered() const;
+    void setOrdered();
+protected:
+    //ours:
 private:
     const std::string name;
     const int id;
@@ -50,7 +55,6 @@ public:
     std::string toString() const;
 private:
 };
-
 
 class FullBodyCustomer : public Customer {
 public:

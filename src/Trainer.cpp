@@ -1,15 +1,80 @@
 #include "Trainer.h"
+using namespace std;
 
 Trainer::Trainer(int t_capacity): capacity(t_capacity), open(false), salary(0), id(0){
 }
 
-int Trainer::getCapacity() const {
+//copy constructor
+Trainer::Trainer(const Trainer& other): capacity(other.capacity), open(other.open), salary(other.salary), id(other.id){
+    deepCopy(other);
+}
+
+//copy assigment operator
+Trainer& Trainer::operator=(const Trainer& other){
+    if (this != &other) {
+        deepDelete();
+        capacity = other.capacity;
+        open = other.open;
+        salary = other.salary;
+        id = other.id;
+        deepCopy(other);
+    }
+    return *this;
+}
+
+ //move constructor
+ Trainer::Trainer(Trainer&& other): capacity(other.capacity), open(other.open), salary(other.salary), id(other.id), customersList(other.customersList), orderList(other.orderList){
+     other.customersList.clear();
+
+}
+
+
+
+ // move assigment operator
+Trainer& Trainer::operator=(Trainer&& other){
+     deepDelete();
+     capacity = other.capacity;
+     open = other.open;
+     salary = other.salary;
+     id = other.id;
+     customersList = other.customersList;
+     for (const OrderPair& orderPair: other.orderList){
+         orderList.emplace_back(orderPair.first, orderPair.second);
+     }
+     other.customersList.clear();
+     return *this;
+ }
+
+ //destructor
+ Trainer:: ~Trainer(){
+    deepDelete();
+
+ }
+
+void Trainer::deepCopy (const Trainer& other){
+    for (Customer *customer: other.customersList){
+        customersList.push_back(customer->clone());
+    }
+    for (const OrderPair& orderPair: other.orderList){
+        orderList.emplace_back(orderPair.first, orderPair.second);
+    }
+}
+
+void Trainer::deepDelete() {
+    for (Customer *customer: customersList){
+        if (customer) delete customer;
+    }
+    customersList.clear();
+    orderList.clear();
+}
+
+ int Trainer::getCapacity() const {
     return capacity;
 }
 
 void Trainer::addCustomer(Customer *customer) {
-    //TODO add to costumerlist
-    // add to orderlist
+    customersList.push_back(customer);
+    capacity--;
 }
 
 void Trainer::removeCustomer(int c_id) {
