@@ -22,12 +22,32 @@ std::string SweatyCustomer::toString() const {
     return "";
 }
 
+Customer *SweatyCustomer::clone() const {
+    return new SweatyCustomer(*this);
+}
+
 CheapCustomer::CheapCustomer(std::string name, int id) : Customer(name, id) {
 
 }
 
+std::string CheapCustomer::toString() const {
+    return getName() + ",chp";
+}
+
+Customer *CheapCustomer::clone() const {
+    return new CheapCustomer(*this);
+}
+
 HeavyMuscleCustomer::HeavyMuscleCustomer(std::string name, int id) : Customer(name, id) {
 
+}
+
+std::string HeavyMuscleCustomer::toString() const {
+    return getName() + ",mcl";
+}
+
+Customer *HeavyMuscleCustomer::clone() const {
+    return new HeavyMuscleCustomer(*this);
 }
 
 FullBodyCustomer::FullBodyCustomer(std::string name, int id) : Customer(name, id) {

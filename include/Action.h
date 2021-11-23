@@ -20,7 +20,7 @@ public:
     virtual std::string toString() const=0;
 protected:
     void complete();
-    void error(std::string errorMsg);
+    void error(std::string errormsg);
     std::string getErrorMsg() const;
 private:
     std::string errorMsg;
@@ -36,6 +36,7 @@ public:
 private:
 	const int trainerId;
 	std::vector<Customer *> customers;
+    std::vector<std::string> customersToStrings;
 };
 
 

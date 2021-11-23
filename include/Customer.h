@@ -8,7 +8,8 @@
 class Customer{
 public:
     Customer(std::string c_name, int c_id);
-    //TODO why do we have a constructor for abstract class?
+    virtual ~Customer();
+    virtual Customer* clone() const = 0;
     virtual std::vector<int> order(const std::vector<Workout> &workout_options) = 0;
     virtual std::string toString() const = 0;
     std::string getName() const;
@@ -16,21 +17,25 @@ public:
 private:
     const std::string name;
     const int id;
+    //ours:
+    bool ordered;
+
 };
 
 
 class SweatyCustomer : public Customer {
 public:
 	SweatyCustomer(std::string name, int id);
+    Customer* clone() const;
     std::vector<int> order(const std::vector<Workout> &workout_options);
     std::string toString() const;
 private:
 };
 
-// TODO like sweaty for all the rest
 class CheapCustomer : public Customer {
 public:
 	CheapCustomer(std::string name, int id);
+    Customer* clone() const;
     std::vector<int> order(const std::vector<Workout> &workout_options);
     std::string toString() const;
 private:
@@ -40,6 +45,7 @@ private:
 class HeavyMuscleCustomer : public Customer {
 public:
 	HeavyMuscleCustomer(std::string name, int id);
+    Customer* clone() const;
     std::vector<int> order(const std::vector<Workout> &workout_options);
     std::string toString() const;
 private:
@@ -49,6 +55,7 @@ private:
 class FullBodyCustomer : public Customer {
 public:
 	FullBodyCustomer(std::string name, int id);
+    Customer* clone() const;
     std::vector<int> order(const std::vector<Workout> &workout_options);
     std::string toString() const;
 private:

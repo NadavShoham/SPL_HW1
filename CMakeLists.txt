@@ -6,6 +6,8 @@ set(CMAKE_CXX_STANDARD 14
         src/Studio.cpp
         src/Trainer.cpp
         src/Workout.cpp
-        src/Customer.cpp)
+        src/Customer.cpp
+        src/Tests.cpp)
 
-add_executable(SPL_HW1 src/main.cpp src/Studio.cpp src/Trainer.cpp src/Workout.cpp src/Customer.cpp src/Action.cpp src/Action.h)
+add_executable(SPL_HW1 src/main.cpp src/Studio.cpp src/Trainer.cpp src/Workout.cpp src/Customer.cpp src/Action.cpp src/Tests.cpp)
+add_executable(test src/main.cpp src/Workout.cpp src/Customer.cpp src/Trainer.cpp)

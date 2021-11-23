@@ -1,7 +1,6 @@
 #include "Trainer.h"
 
-Trainer::Trainer(int t_capacity): capacity(t_capacity), open(false) {
-    //TODO initialize vectors?
+Trainer::Trainer(int t_capacity): capacity(t_capacity), open(false), salary(0), id(0){
 }
 
 int Trainer::getCapacity() const {
@@ -13,45 +12,95 @@ void Trainer::addCustomer(Customer *customer) {
     // add to orderlist
 }
 
-void Trainer::removeCustomer(int id) {
-    // TODO reverse add
+void Trainer::removeCustomer(int c_id) {
+    int index = 0;
+    for (Customer* customer:customersList) {
+        if (customer->getId() == c_id)
+            break;
+        index++;
+    }
+    if (index < customersList.size()) {
+        customersList.erase(customersList.begin() + index);
+        capacity++;
+    }
+
+
+    // copies all valid orders to temp vector.
+    vector<OrderPair> temp;
+    for (OrderPair & orderPair : orderList) {
+        if (orderPair.first != c_id) {
+            temp.emplace_back(orderPair.first, orderPair.second);
+        }
+    }
+
+    // empty salary and orderlist vector
+    decreaseSalary(salary);
+    orderList.clear();
+
+    // copy valid orders back.
+    for (const OrderPair& orderPair: temp) {
+        orderList.emplace_back(orderPair.first, orderPair.second);
+        increaseSalary(orderPair.second.getPrice());
+    }
 }
 
-Customer* Trainer::getCustomer(int id) {
+Customer* Trainer::getCustomer(int c_id) {
+    for (Customer* customer:customersList) {
+        if (customer->getId() == c_id)
+            return customer;
+    }
     return nullptr;
-    //TODO decide order of customers then change return statement.
 }
 
-std::vector<Customer *>& Trainer::getCustomers() {
-    // TODO check if user can change values in customerlist
+std::vector<Customer *>& Trainer::getCustomers(){
     return customersList;
 }
 
 std::vector<OrderPair>& Trainer::getOrders() {
-    // TODO like getcustomers
     return orderList;
 }
 
 void
 Trainer::order(const int customer_id, const std::vector<int> workout_ids, const std::vector<Workout> &workout_options) {
-    // TODO initialize when writing order class in actions
+    for (int i: workout_ids) {
+        increaseSalary(workout_options[i].getPrice());
+        orderList.emplace_back(customer_id, workout_options[i]);
+    }
 }
 
 void Trainer::openTrainer() {
-    // TODO initialize when writing relevant action class
+    open = true;
 }
 
 void Trainer::closeTrainer() {
-    // TODO same as opentrainer
+    if (salary > 0)
+        salary = 0;
+    open = false;
 }
 
-int Trainer::getSalary() {
-    //TODO find out where the salary is saved and calculated
-    return 0;
+int Trainer::getSalary() const {
+    return salary;
 }
 
 bool Trainer::isOpen() {
     return open;
 }
 
+//ours
+void Trainer::setId(int t_id) {
+    id = t_id;
+}
 
+int Trainer::getId() const {
+    return id;
+}
+
+void Trainer::increaseSalary(int payCheck) {
+    salary += payCheck;
+}
+
+void Trainer::decreaseSalary(int amount) {
+    salary -= amount;
+    if (salary < 0)
+        salary = 0;
+}

@@ -12,21 +12,34 @@ public:
     Trainer(int t_capacity);
     int getCapacity() const;
     void addCustomer(Customer* customer);
-    void removeCustomer(int id);
-    Customer* getCustomer(int id);
+    void removeCustomer(int c_id);
+    Customer* getCustomer(int c_id);
     std::vector<Customer*>& getCustomers();
     std::vector<OrderPair>& getOrders();
     void order(const int customer_id, const std::vector<int> workout_ids, const std::vector<Workout>& workout_options);
     void openTrainer();
     void closeTrainer();
-    int getSalary();
+    int getSalary() const;
     bool isOpen();
+
+    //ours
+    void setId(int t_id);
+    int getId() const;
+    void increaseSalary(int payCheck);
+    void decreaseSalary(int amount);
+
 private:
-    //TODO add slaray and id fields (and getters?)
     int capacity;
     bool open;
     std::vector<Customer*> customersList;
     std::vector<OrderPair> orderList; //A list of pairs for each order for the trainer - (customer_id, Workout)
+
+    //ours
+    int salary;
+    int id;
+    void deepCopy(const Trainer& other);
+    void deepDelete();
+
 };
 
 
