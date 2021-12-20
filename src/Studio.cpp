@@ -17,6 +17,7 @@ Studio::Studio(const string &configFilePath): open(false), customerLastId(0){
     while (numOfTrainers.empty() || numOfTrainers[0] == '#') {
         getline(config, numOfTrainers);
     }
+    //numOfTrainers = numOfTrainers.substr(0, numOfTrainers.length() - 1);
     while (capacityOfTrainers.empty() || capacityOfTrainers[0] == '#') {
         getline(config, capacityOfTrainers);
     }
@@ -99,7 +100,11 @@ void Studio::deepDelete() {
 }
 
 //move constructor
-Studio::Studio(Studio &&other): open(other.open), customerLastId(other.customerLastId), trainers(other.trainers), actionsLog(other.actionsLog) {
+Studio::Studio(Studio&& other) {
+    customerLastId = other.customerLastId;
+    trainers = other.trainers;
+    open = other.open;
+    actionsLog = other.actionsLog;
     for (const Workout& workout: other.workout_options){
         workout_options.emplace_back(workout);
     }
@@ -179,7 +184,7 @@ void Studio::start() {
             delimiter = 0;
 
             // customerList initialization
-            while (delimiter != string::npos) {
+            while (delimiter <= INT32_MAX) {
                 //parsing data
                 delimiter = data.find_first_of(' ');
                 customerData = data.substr(0, delimiter);
@@ -236,7 +241,8 @@ int Studio::getNumOfTrainers() const {
 }
 
 Trainer *Studio::getTrainer(int tid) {
-    if (tid <= trainers.size())
+    unsigned long long_id = static_cast<long> (tid);
+    if (long_id <= trainers.size())
         return trainers[tid];
     else
         return nullptr;

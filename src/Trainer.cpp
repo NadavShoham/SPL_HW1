@@ -23,7 +23,15 @@ Trainer& Trainer::operator=(const Trainer& other){
 }
 
  //move constructor
- Trainer::Trainer(Trainer&& other): capacity(other.capacity), open(other.open), salary(other.salary), id(other.id), customersList(other.customersList), orderList(other.orderList){
+ Trainer::Trainer(Trainer&& other) {
+     id = other.id;
+     customersList = other.customersList;
+     capacity = other.capacity;
+     open = other.open;
+     salary = other.salary;
+     for (const OrderPair& orderPair: other.orderList) {
+         orderList.emplace_back(orderPair.first, orderPair.second);
+     }
      other.customersList.clear();
 
 }
@@ -78,7 +86,7 @@ void Trainer::addCustomer(Customer *customer) {
 }
 
 void Trainer::removeCustomer(int c_id) {
-    int index = 0;
+    unsigned int index = 0;
     for (Customer* customer:customersList) {
         if (customer->getId() == c_id)
             break;

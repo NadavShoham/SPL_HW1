@@ -42,17 +42,26 @@ void OpenTrainer::act(Studio &studio) {
 
     // input check
     if (trainer == nullptr || trainer->isOpen()){
+        for (Customer* customer: customers) {
+            delete customer;
+        }
+        customers.clear();
         error("Workout session does not exist or is already open\n");
         cout << getErrorMsg();
 
     } else {
         // Will insert customers until capacity is full, if max limit reached it will delete the extra customers.
-        unsigned int limit = customers.size() < trainer->getCapacity() ? customers.size(): trainer->getCapacity();
+        unsigned long long_capacity = static_cast<int>(trainer->getCapacity());
+        unsigned long limit = customers.size() < long_capacity ? customers.size(): long_capacity;
 
-        for (int i = 0; i < limit; i++)
+        for (unsigned long i = 0; i < limit; i++)
             trainer->addCustomer(customers[i]);
-        for (unsigned int i = limit; i < customers.size(); ++i)
-            delete customers[i];
+        for (Customer* customer: customers) {
+            limit--;
+            if (limit < 0)
+                delete customer;
+        }
+
         customers.clear();
         trainer->openTrainer();
         complete();
@@ -134,7 +143,7 @@ void MoveCustomer::act(Studio &studio) {
 
     // check that both trainers are open, check dTrainer capacity and check if customer is in sTrainer's customer list.
     if (sTrainer == nullptr || dTrainer == nullptr || !sTrainer->isOpen() || !dTrainer->isOpen() ||
-    dTrainer->getCapacity() == 0 || sTrainer->getCustomers().empty()) {
+    dTrainer->getCapacity() == 0 || sTrainer->getCustomer(id) == nullptr) {
         error("Cannot move customer\n");
         cout << getErrorMsg();
     } else{

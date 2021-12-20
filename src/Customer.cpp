@@ -57,8 +57,8 @@ CheapCustomer::CheapCustomer(string name, int id) : Customer(name, id) {
 }
 
 vector<int> CheapCustomer::order(const vector<Workout> &workout_options){
-    int cheapest = INT_MAX;
-    int cheapestWorkout = INT_MAX;
+    int cheapest = INT32_MAX;
+    int cheapestWorkout = INT32_MAX;
     vector<int> orders;
 
     // if an order already happened no need to add another order pair
@@ -78,7 +78,7 @@ vector<int> CheapCustomer::order(const vector<Workout> &workout_options){
     }
 
     // if order was successful
-    if (cheapestWorkout != INT_MAX) {
+    if (cheapestWorkout != INT32_MAX) {
         orders.push_back(cheapestWorkout);
     }
     setOrdered();
@@ -135,12 +135,12 @@ FullBodyCustomer::FullBodyCustomer(std::string name, int id) : Customer(name, id
 }
 
 vector<int> FullBodyCustomer::order(const vector<Workout> &workout_options){
-    int cheapestCardioPrice = INT_MAX;
-    int cheapestCardio = INT_MAX;
+    int cheapestCardioPrice = INT32_MAX;
+    int cheapestCardio = INT32_MAX;
     int expensive = 0;
-    int expensiveMixType = INT_MAX;
-    int cheapestAnaerobicPrice = INT_MAX;
-    int cheapestAnaerobic = INT_MAX;
+    int expensiveMixType = INT32_MAX;
+    int cheapestAnaerobicPrice = INT32_MAX;
+    int cheapestAnaerobic = INT32_MAX;
     vector<int> orders;
 
     // if an order already happened no need to add another order pair
@@ -177,13 +177,13 @@ vector<int> FullBodyCustomer::order(const vector<Workout> &workout_options){
     }
 
     // if order was successful
-    if (cheapestCardio != INT_MAX ) {
+    if (cheapestCardio != INT32_MAX ) {
         orders.push_back(cheapestCardio);
     }
-    if (expensiveMixType != INT_MAX) {;
+    if (expensiveMixType != INT32_MAX) {;
         orders.push_back(expensiveMixType);
     }
-    if (cheapestAnaerobic != INT_MAX) {
+    if (cheapestAnaerobic != INT32_MAX) {
         orders.push_back(cheapestAnaerobic);
     }
     setOrdered();
